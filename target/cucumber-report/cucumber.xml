@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<testsuite failures="0" name="Test Suite" skipped="0" tests="3" time="114.908">
+
+<testcase classname="UI Tests" name="Add a user to webtable and validate that user has been added" time="43.118">
+            
+    <system-out>
+                    
+        <![CDATA[Given I open the site "http://www.way2automation.com/angularjs-protractor/webtables/".passed
+When I add  user with the following information "TestFirstName1" "TestLastName1" "testusername1" "test123456" "testuser1@testcompany.com" "123-456-1000".passed
+Then user "TestFirstName1" exists in table..................................passed
+]]>
+                
+    </system-out>
+        
+</testcase>
+
+<testcase classname="API tests" name="get employee" time="21.31">
+            
+    <system-out>
+                    
+        <![CDATA[Given an employee exist in the database with id "2".........................passed
+When user retrieves employee info by id.....................................passed
+Then the status code for get employee is 200................................passed
+And response includes the following employee info...........................passed
+]]>
+                
+    </system-out>
+        
+</testcase>
+
+<testcase classname="UI Tests" name="Add a user to webtable and validate that user has been added" time="45.316">
+            
+    <system-out>
+                    
+        <![CDATA[Given I open the site "http://www.way2automation.com/angularjs-protractor/webtables/".passed
+When I add  user with the following information "TestFirstName" "TestLastName" "testusername" "test12345" "testuser@testcompany.com" "123-456-7890".passed
+Then user "TestFirstName" exists in table...................................passed
+]]>
+                
+    </system-out>
+        
+</testcase>
+
+</testsuite>

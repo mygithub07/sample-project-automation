@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <groupId>com.test</groupId>
+    <artifactId>com.test</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>8</source>
+                    <target>8</target>
+                </configuration>
+            </plugin>
+           
+        </plugins>
+       
+    </build>
+    <modelVersion>4.0.0</modelVersion>
+  
+  <properties>
+    <!-- Properties for dependencies -->
+    <junit.version>4.13.1</junit.version>
+    <cucumber.version>6.9.1</cucumber.version>
+    <assertj.version>3.16.1</assertj.version>
+    <httpclient.version>4.5.12</httpclient.version>
+    <docker-maven-plugin.version>0.33.0</docker-maven-plugin.version>
+     <selenium-java.version>3.141.59</selenium-java.version>
+      <aspectj.version>1.9.1</aspectj.version>
+
+      
+  </properties>
+    <repositories>
+  <repository>
+    <id>jcenter</id>
+    <name>bintray</name>
+    <url>https://jcenter.bintray.com</url>
+  </repository>
+  <repository>
+        <id>java-net</id>
+        <url>http://download.java.net/maven/2</url>
+    </repository>
+   </repositories>
+  <pluginRepositories>
+    <pluginRepository>
+      <id>jcenter</id>
+       <url>https://jcenter.bintray.com</url>
+    </pluginRepository>
+  </pluginRepositories>
+    
+  <dependencies>
+      <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>2.0.0-alpha1</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.cucumber</groupId>
+      <artifactId>cucumber-guice</artifactId>
+      <version>${cucumber.version}</version>
+      <scope>test</scope>
+    </dependency>
+      <dependency>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>selenium-java</artifactId>
+      <version>${selenium-java.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.google.inject</groupId>
+      <artifactId>guice</artifactId>
+      <version>4.2.3</version>
+      <scope>test</scope>
+    </dependency>
+     <dependency>
+      <groupId>io.cucumber</groupId>
+      <artifactId>cucumber-java</artifactId>
+      <version>${cucumber.version}</version>
+      <scope>test</scope>
+    </dependency>
+      <dependency>
+        <groupId>io.rest-assured</groupId>
+        <artifactId>rest-assured</artifactId>
+        <version>4.3.3</version>
+        <scope>test</scope>
+
+    </dependency>
+      <dependency>
+        <groupId>org.assertj</groupId>
+        <artifactId>assertj-core</artifactId>
+        <version>3.19.0</version>
+        <scope>test</scope>
+   </dependency>
+      <dependency>
+    <groupId>org.json</groupId>
+    <artifactId>json</artifactId>
+    <version>20201115</version>
+</dependency>
+      <dependency>
+    <groupId>org.testng</groupId>
+    <artifactId>testng</artifactId>
+    <version>6.14.3</version>
+    <scope>test</scope>
+</dependency>
+      <dependency>
+    <groupId>io.cucumber</groupId>
+    <artifactId>cucumber-testng</artifactId>
+    <version>6.9.1</version>
+</dependency>
+      <dependency>
+    <groupId>io.github.prashant-ramcharan</groupId>
+    <artifactId>courgette-jvm</artifactId>
+    <version>5.11.0</version>
+</dependency>
+      <dependency>
+  <!-- httpclient dpendendecy is to resolve courgette-jvm error -  NoClassDefFoundError: org/apache/http/conn/ssl/TrustAllStrategy -->        
+ <groupId>org.apache.httpcomponents</groupId>
+    <artifactId>httpclient</artifactId>
+    <version>4.5.10</version>
+</dependency>
+
+  </dependencies>
+    
+  <profiles>
+      
+ <profile>
+      <id>acceptanceTests</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <build>
+
+        <plugins>
+            <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-failsafe-plugin</artifactId>
+            <version>3.0.0-M5</version>
+            <executions>
+                 <execution>
+                  <id>integration-test</id> 
+                <goals>
+                  <goal>integration-test</goal>
+                  
+                </goals>
+              </execution>
+         
+            </executions>
+   
+          </plugin>
+           <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>8</source>
+          <target>8</target>
+        </configuration>
+             
+      </plugin>
+           
+              <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-report-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>failsafe-report-only</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            
+            
+        </plugins>
+      
+      </build>
+    
+    </profile>
+  </profiles>
+ 
+</project>

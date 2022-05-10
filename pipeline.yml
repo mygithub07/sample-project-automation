@@ -1,0 +1,64 @@
+trigger:
+- master
+resources:
+- repo: self
+variables:
+  tag: '$(Build.BuildId)'
+stages:
+- stage: Build
+  displayName: Build and Push image
+  jobs:
+   - job: Build
+     displayName: Build and Push
+     pool:
+        vmImage: 'ubuntu-latest'
+     steps:
+     - task: DockerCompose@0
+       displayName: open browser instances
+       inputs:
+         containerregistrytype: 'Container Registry'
+         dockerRegistryEndpoint: Dockerhub
+         dockerComposeFile: '**/docker-compose.yml'
+         action: 'Run a Docker Compose command'
+         dockerComposeCommand: 'up -d'
+         detached: true
+
+     - task: Maven@3
+       inputs:
+         mavenPomFile: 'pom.xml'
+         mavenOptions: '-Xmx3072m'
+         jdkArchitectureOption: 'x64'
+         publishJUnitResults: true
+         testResultsFiles: '**/target/cucumber.html'
+         goals: 'clean verify -P acceptanceTests -e'
+         
+     - task: PublishPipelineArtifact@1
+       displayName: Publish cucumber html report
+       inputs:
+         pathToPublish: $(System.DefaultWorkingDirectory)/s/target/cucumber-report/
+         artifactName: 'cucumber.html'
+
+     - task: PublishPipelineArtifact@1
+       displayName: Publish cucumber xml report
+       inputs:
+         pathToPublish: $(System.DefaultWorkingDirectory)/s/target/cucumber-report/
+         artifactName: 'cucumber.xml'
+
+     - task: PublishPipelineArtifact@1
+       displayName: Publish cucumber json report
+       inputs:
+         pathToPublish: $(System.DefaultWorkingDirectory)/s/target/cucumber-report/
+         artifactName: 'cucumber.json'
+         
+     - task: PublishTestResults@2
+       inputs:
+         testResultsFormat: 'JUnit'
+         searchFolder: '$(System.DefaultWorkingDirectory)'
+         publishJUnitResults: true
+         testResultsFiles: '**/target/cucumber-report/cucumber.xml'
+         
+         
+     - task: PublishCucumberReport@1
+       inputs:
+         jsonDir: ./target/cucumber-report/
+         outputPath: ./target/

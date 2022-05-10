@@ -1,0 +1,11 @@
+com/test/AcceptanceIT.class
+com/test/support/UiTestsPageObjects.class
+com/test/support/ApiTestsPageObjects.class
+com/test/support/UiElementPageObjects.class
+com/test/support/FirefoxManager.class
+com/test/stepdefs/ApiTests.class
+com/test/stepdefs/DriverFactory.class
+com/test/support/ChromeManager.class
+com/test/support/DriverManager.class
+com/test/stepdefs/UiTests.class
+com/test/support/Global.class
